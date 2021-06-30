@@ -38,14 +38,17 @@ function App() {
   function handleRecipeAdd(){
     const newRecipe = {
       id: uuidv4(),
-      name: 'New',
+      name: '',
       servings: 1,
-      cookTime: '1:00',
-      instructions: 'Instr.',
+      cookTime: '',
+      instructions: '',
       ingredients: [
-        { id: uuidv4(), name: 'Name', amount: '1 tbs' }
+        { id: uuidv4(), name: '', amount: '' }
       ]
     }
+
+    setSelectedRecipeId(newRecipe.id)
+
     setRecipes([...recipes, newRecipe])
   }
 
@@ -58,6 +61,11 @@ function App() {
   }
 
   function handleRecipeDelete(id){
+    //this if is to clear a selected recipe Id from a recipe you just deleted. vid21 min 7
+    //check to see if you have a selected recipe id and if the selected recipe id is equal to recpe id we passed in, if so it means we're deleting the recipe we have currently selected. so set selected recipe id to undefined to explicitly say that we no longer have a selected recipe.
+    if (selectedRecipeId != null && selectedRecipeId == id){
+      setSelectedRecipeId(undefined)
+    }
     setRecipes(recipes.filter(recipe => recipe.id !== id))  //give me every recipe that doesnt have this id
   }
 
